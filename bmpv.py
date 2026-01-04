@@ -7,15 +7,24 @@
 import os
 import re
 import sys
+from termcolor import colored
 
-VERSION = "0.1.3"
+VERSION = "0.1.4"
+
+
+def msg(text, color='green'):
+    print(colored(text, color))
+
+
+def err(text):
+    sys.stderr.write(colored(text + '\n', 'red'))
 
 
 def increment_version(file_path, part):
 
     # check if file_path exists and exit if it doesn't
     if not os.path.isfile(file_path):
-        print(f"File {file_path} does not exist.")
+        err(f"File {file_path} does not exist.")
         exit(1)
 
     with open(file_path, 'r') as file:
@@ -25,7 +34,7 @@ def increment_version(file_path, part):
     match = re.search(version_pattern, content)
 
     if not match:
-        print("No version string found in the file.")
+        err("No version string found in the file.")
         exit(1)
 
     major, minor, patch = map(int, match.groups())
@@ -40,7 +49,7 @@ def increment_version(file_path, part):
     elif part == 'patch':
         patch += 1
     else:
-        print("Invalid part specified. Use major, minor, or patch.")
+        err("Invalid part specified. Use major, minor, or patch.")
         exit(1)
 
     new_version = f"{major}.{minor}.{patch}"
@@ -49,20 +58,36 @@ def increment_version(file_path, part):
     with open(file_path, 'w') as file:
         file.write(new_content)
 
-    print(f"{file_path} bumped to version {new_version}")
+    msg(f"{file_path} bumped to version {new_version}")
+
+
+def usage():
+    msg(f"bmp v{VERSION}")
+    msg("Usage:")
+    msg("\tbmpv <file> <part>\n")
+    msg("\t <file>\tPath to the file containing the version string.")
+    msg("\t <part>\tPart to increment: major, minor, or patch.\n")
+    msg("Options:")
+    msg("\t-v, --version\tShow version information")
 
 
 def main():
+    if (len(sys.argv) == 2):
 
-    if (sys.argv[1] in ['-v', '--version']):
-        print(f"bmp v{VERSION}")
-        exit(0)
+        if sys.argv[1] in ['-v', '--version']:
+            print(f"{VERSION}")
+            exit(0)
+
+        if sys.argv[1] in ['-h', '--help']:
+            usage()
+            exit(0)
 
     if len(sys.argv) != 3:
-        print("Usage: bmp <file_path> <major|minor|patch>")
+        usage()
+        exit(0)
     else:
         if sys.argv[1] in ['-v', '--version']:
-            print(f"bmp v{VERSION}")
+            msg(f"bmpv v{VERSION}")
             exit(0)
         else:
             increment_version(sys.argv[1], sys.argv[2])
