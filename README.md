@@ -1,11 +1,11 @@
-# bmp
+# bmpv
 
 A simple command line tool for bumping the version of your project.
 
 ## Usage
 
 ```bash
-bmp <file_path> <major|minor|patch>
+bmpv <file_path> <major|minor|patch>
 ```
 - `<file_path>`: Path to the file containing the version string.
 - `<major|minor|patch>`: Specify which part of the version to bump.
@@ -25,6 +25,18 @@ It will parse out the major, minor and patch parts and increment the appropriate
 
 ## Installation
 
+You can install using `uv`:
+
+```bash
+uv tool install bmpv
+```
+
+You can run without installing:
+
+```bash
+uv tool run bmpv
+```
+
 On Windows, this tool is distributed via `scoop` (see [scoop.sh](https://scoop.sh)).
 
 First, you need to add my bucket:
@@ -34,6 +46,6 @@ First, you need to add my bucket:
 
 Next simply run:
  
-    scoop install gopher
+    scoop install bmpv
 
 If you don't want to use `scoop` you can simply download the executable from the release page and extract it somewhere in your path.

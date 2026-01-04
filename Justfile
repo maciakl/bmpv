@@ -1,4 +1,4 @@
-PROJ := "bmp"
+PROJ := "bmpv"
 VER := `uv version | awk '{print $NF}'`
 
 all: release
