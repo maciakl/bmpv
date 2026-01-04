@@ -53,6 +53,11 @@ def increment_version(file_path, part):
 
 
 def main():
+
+    if (sys.argv[1] in ['-v', '--version']):
+        print(f"bmp v{VERSION}")
+        exit(0)
+
     if len(sys.argv) != 3:
         print("Usage: bmp <file_path> <major|minor|patch>")
     else:
