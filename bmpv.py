@@ -69,6 +69,7 @@ def usage():
     msg("\t <part>\tPart to increment: major, minor, or patch.\n")
     msg("Options:")
     msg("\t-v, --version\tShow version information")
+    msg("\t-h, --help\tShow this help message")
 
 
 def main():

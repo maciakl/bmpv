@@ -5,10 +5,16 @@ A simple command line tool for bumping the version of your project.
 ## Usage
 
 ```bash
-bmpv <file_path> <major|minor|patch>
+Usage:
+        bmpv <file> <part>
+
+        <file> Path to the file containing the version string.
+        <part> Part to increment: major, minor, or patch.
+
+Options:
+        -v, --version   Show version information
+        -h, --help      Show this help message
 ```
-- `<file_path>`: Path to the file containing the version string.
-- `<major|minor|patch>`: Specify which part of the version to bump.
 
 The program will search your code for a line that looks something like a semantic version number:
 
