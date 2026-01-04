@@ -9,7 +9,7 @@ import re
 import sys
 from termcolor import colored
 
-VERSION = "0.1.5"
+VERSION = "0.1.6"
 
 
 def msg(text, color='green'):
