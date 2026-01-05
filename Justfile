@@ -1,4 +1,4 @@
-pro := `uv version | awk '{print $1}'`
+PROJ := `uv version | awk '{print $1}'`
 VER := `uv version | awk '{print $NF}'`
 TOKEN := env("UV_PUBLISH_TOKEN")
 
@@ -29,5 +29,8 @@ publish: release
 
 bump part:
     @echo Current version: {{VER}}
-    bmp {{PROJ}}.py {{part}}
+    bmpv {{PROJ}}.py {{part}}
     uv version --bump {{part}}
+
+clean:
+    rm -rf build dist __pycache__

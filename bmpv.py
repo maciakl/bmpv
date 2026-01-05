@@ -7,17 +7,17 @@
 import os
 import re
 import sys
-from termcolor import colored
+import termcolor
 
-VERSION = "0.1.6"
+VERSION = "0.1.7"
 
 
 def msg(text, color='green'):
-    print(colored(text, color))
+    print(termcolor.colored(text, color))
 
 
 def err(text):
-    sys.stderr.write(colored(text + '\n', 'red'))
+    sys.stderr.write(termcolor.colored(text + '\n', 'red'))
 
 
 def increment_version(file_path, part):
@@ -25,7 +25,7 @@ def increment_version(file_path, part):
     # check if file_path exists and exit if it doesn't
     if not os.path.isfile(file_path):
         err(f"File {file_path} does not exist.")
-        exit(1)
+        sys.exit(1)
 
     with open(file_path, 'r') as file:
         content = file.read()
@@ -35,7 +35,7 @@ def increment_version(file_path, part):
 
     if not match:
         err("No version string found in the file.")
-        exit(1)
+        sys.exit(1)
 
     major, minor, patch = map(int, match.groups())
 
@@ -50,7 +50,7 @@ def increment_version(file_path, part):
         patch += 1
     else:
         err("Invalid part specified. Use major, minor, or patch.")
-        exit(1)
+        sys.exit(1)
 
     new_version = f"{major}.{minor}.{patch}"
     new_content = re.sub(version_pattern, new_version, content, count=1)
@@ -77,19 +77,19 @@ def main():
 
         if sys.argv[1] in ['-v', '--version']:
             print(f"{VERSION}")
-            exit(0)
+            sys.exit(0)
 
         if sys.argv[1] in ['-h', '--help']:
             usage()
-            exit(0)
+            sys.exit(0)
 
     if len(sys.argv) != 3:
         usage()
-        exit(0)
+        sys.exit(0)
     else:
         if sys.argv[1] in ['-v', '--version']:
             msg(f"bmpv v{VERSION}")
-            exit(0)
+            sys.exit(0)
         else:
             increment_version(sys.argv[1], sys.argv[2])
 
