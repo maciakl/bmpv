@@ -4,6 +4,17 @@ TOKEN := env("UV_PUBLISH_TOKEN")
 
 all: publish
 
+info:
+    @echo Project: {{PROJ}}
+    @echo Version: {{VER}}
+    @echo Git Branch: $(git rev-parse --abbrev-ref HEAD)
+    @echo Git HEAD: $(git rev-parse --short HEAD)
+    @echo Git Tag: $(git describe --tags --abbrev=0) \($(git rev-parse --short $(git describe --tags --abbrev=0)^{commit})\)
+    @echo Git Status: $(git status --porcelain | wc -l) uncommitted
+    @echo Git Origin: $(git config --get remote.origin.url)
+    @echo Recent commits:
+    @git --no-pager log --oneline --graph --decorate -10
+
 build:
     uv build
 
