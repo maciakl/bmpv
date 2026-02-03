@@ -53,7 +53,7 @@ release: hash
 
 # publish the project to pypi using uv
 [group('deploy')]
-publish: release
+publish: build
     uv publish --token {{TOKEN}}
 
 # bump the project version (this updates project.toml as well as the main python file) Takes an argument: [major, minor, patch]
