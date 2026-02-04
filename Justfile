@@ -67,5 +67,5 @@ bump part="patch":
 [group('util')]
 clean:
     -rm -rf build 
-    -rm -ff dist 
+    -rm -rf dist 
     -rm -rf __pycache__
